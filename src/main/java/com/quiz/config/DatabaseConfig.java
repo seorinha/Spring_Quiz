@@ -1,4 +1,4 @@
-package com.quiz.lesson02.config;
+package com.quiz.config;
 
 import javax.sql.DataSource;
 

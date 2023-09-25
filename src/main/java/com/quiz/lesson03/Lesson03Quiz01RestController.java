@@ -36,7 +36,8 @@ public class Lesson03Quiz01RestController {
 	//요청 url: http://localhost:8080/lesson03/quiz01/3?area= &price=
 	@RequestMapping("/3")
 	public List<RealEstate> quiz01_3(
-			@RequestParam("area") int area) {
-		return realEstateBO.get
+			@RequestParam(value="area") int area,
+			@RequestParam("price") int price) {
+		return realEstateBO.getRealEstateListByAreaPrice(area, price); //response body의 json으로 내려간다
 	}
 }

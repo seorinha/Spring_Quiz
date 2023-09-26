@@ -112,5 +112,22 @@
  		)
  	</insert>
  	
- 
+ 	<update id="updateRealEstateById" parameterType="map">
+ 		UPDATE `real_estate`
+ 		SET
+ 			`type` = #{type}
+ 			, `price` = #{price}
+ 			, `updatedAt` = NOW()
+ 		WHERE
+ 			`id` = #{id} <!-- id가 지정된 행만 바뀐다 -->
+ 	</update>
+
+	<delete id="deleteRealEstateById" parameterType="int">
+		DELETE
+		FROM 
+			`real_estate`
+		WHERE
+			`id` = #{id}
+		
+	</delete>
  </mapper>

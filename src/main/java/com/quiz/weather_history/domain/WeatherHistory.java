@@ -1,4 +1,4 @@
-package com.quiz.lesson05.weather_history;
+package com.quiz.weather_history.domain;
 
 import java.util.Date;
 
@@ -7,15 +7,12 @@ public class WeatherHistory {
 	private int id;
 	private Date date;
 	private String weather;
-	private int temperatures;
-	private int precipitation;
+	private double temperatures;
+	private double precipitation;
 	private String microDust;
-	private int windSpeed;
+	private double windSpeed;
 	private Date createdAt;
 	private Date updatedAt;
-	
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -34,16 +31,16 @@ public class WeatherHistory {
 	public void setWeather(String weather) {
 		this.weather = weather;
 	}
-	public int getTemperatures() {
+	public double getTemperatures() {
 		return temperatures;
 	}
-	public void setTemperatures(int temperatures) {
+	public void setTemperatures(double temperatures) {
 		this.temperatures = temperatures;
 	}
-	public int getPrecipitation() {
+	public double getPrecipitation() {
 		return precipitation;
 	}
-	public void setPrecipitation(int precipitation) {
+	public void setPrecipitation(double precipitation) {
 		this.precipitation = precipitation;
 	}
 	public String getMicroDust() {
@@ -52,10 +49,10 @@ public class WeatherHistory {
 	public void setMicroDust(String microDust) {
 		this.microDust = microDust;
 	}
-	public int getWindSpeed() {
+	public double getWindSpeed() {
 		return windSpeed;
 	}
-	public void setWindSpeed(int windSpeed) {
+	public void setWindSpeed(double windSpeed) {
 		this.windSpeed = windSpeed;
 	}
 	public Date getCreatedAt() {
@@ -71,6 +68,5 @@ public class WeatherHistory {
 		this.updatedAt = updatedAt;
 	}
 	
-	
-	
+
 }

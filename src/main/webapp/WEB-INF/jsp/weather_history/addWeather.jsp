@@ -5,9 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>날씨 정보</title>
+<!-- jquery원본: bootstrap, datepicker -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+<!-- datepicker -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/css/weather_history/style.css">
 </head>
@@ -34,7 +41,7 @@
 			<%--날씨 추가 --%>
 			<section class="col-10 mt-3 ml-5">
 				<h3>날씨 입력</h3>
-				<form method="post" action="lesson05/weather_history">
+				<form method="post" action="/weather/add-weather">
 					<div class="d-flex justify-content-between mt-5">
 						<%--날짜 --%>
 						<div class="d-flex align-items-center">
@@ -117,5 +124,14 @@
 			</div>
 		</footer>
 	</div>
+	
+	<script>
+		//ready: DOM tree가 완성 된 후 불려지는 함수
+		$(document).ready(function(){
+			$("#date").datepicker({
+				dateFormat:"yy-mm-dd" //날짜 포멧
+			});
+		});
+	</script>
 </body>
 </html>

@@ -37,7 +37,17 @@
 			//urlCheckBtn안쪽 태그들 초기화
 			$('#urlStatusArea').empty();
 			
+			//validation
+			if () {
+				
+			}
 			
+			//중복인지 확인
+			$.ajax({
+				//request
+				
+				//response
+			});
 		});
 		
 		

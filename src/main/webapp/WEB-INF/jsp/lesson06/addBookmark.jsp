@@ -17,52 +17,80 @@
 	<div class="container">
 		<h1>즐겨 찾기 추가 하기</h1>
 		<div class="form-group">
-			<label for="title"><b>제목</b></label>
-			<input type="text" id="title" name="title" class="form-control col-10" placeholder="제목을 입력하세요">
+			<label for="name"><b>제목</b></label>
+			<input type="text" id="name" class="form-control col-10" placeholder="제목을 입력하세요">
 		</div>
 		<div class="form-group">
-			<label for="address"><b>주소</b></label>
-			<input type="text" id="address" name="address" class="form-control col-10" placeholder="주소를 입력하세요">
+			<label for="url"><b>URL</b></label>
+			<div class="d-flex">
+				<input type="text" id="url" class="form-control col-10" placeholder="주소를 입력하세요">
+				<button type="button" class="btn btn-info" id="urlCheckBtn">중복확인</button>
+			</div>
+			<small id="urlStatusArea"></small>
 		</div>
-		<input type="button" id="joinBtn" class="btn btn-success col-10" value="추가">
+		<button type="button" id="addBtn" class="btn btn-success btn-block">추가</button>
 	</div>
 <script>
 	$(document).ready(function() {
-		$('#joinBtn').on('click', function() {
+		//중복 버튼클릭
+		$('#urlCheckBtn').on('click', function() {
+			//urlCheckBtn안쪽 태그들 초기화
+			$('#urlStatusArea').empty();
+			
+			
+		});
+		
+		
+		$('#addBtn').on('click', function() {
 			//alert("버튼클릭");
+			
 			//validation check
-			let title = $("title").val().trim();
-			if (title == "") {
+			let name = $("#name").val().trim();
+			let url = $("#url").val().trim();
+			
+			console.log(name); //들어있는지 확인하는 절차
+			console.log(url);
+			
+			if (!name) {
 				alert("제목을 입력하세요");
-				return false; 
+				return;
 			}
 			
-			let title = $("address").val().trim();
-			if (address == "") {
+			if (!url) {
 				alert("주소를 입력하세요");
-				return false; 
+				return; 
 			}
 			
-			//AJAX: 서버 요청
+			if (url.startsWith("http://") == false && 
+					url.startsWith("https://") == false) {
+				alert("주소 형식이 잘못 되었습니다.");
+				return;
+			}
+			
+			//AJAX 통신(브라우저가 하는 역할 내가 하기): 서버 요청
 			$.ajax({
 				//request
 				type:"post"
 				, url:"/lesson06/quiz01/add-bookmark"
-				, data:{"title":title, "address":address}
+				, data:{"name":name, "url":url}
 			
 				//response
 				//call back 함수
-				, success:function(data) { //data: response결과의 응답값, 위의 data와는 아무관계없음
+				, success:function(data) { //data: response결과의 응답값(json String) => dictory object가 된다, 위의 data와는 아무관계없음, 어떤 글자가와도 상관없으나 관례적으로 data를 넣는다
+					//data는 json String이 아니라 object로 변환된 형태로 사용할 수 잇다 jquert의 ajax 함수의 기능때문에
 					//서버 처리 후에 에러가 없을 때 수행
-					if (data == "성공") {
+					//alert(data.code);
+					//alert(data.result);
+					
+					if (data.code == 200) { //data.result == "success"로 넣어도 된다 둘중 아무거나
 						location.href = "/lesson06/quiz01/bookmark-list";
 					}
 				}
+				, error:function(request, status, error){ //파라미터가 관례적으로 3가지이다
+					alert("추가에 실패했습니다.관리자에게 문의해주세요");
+				}
 				
-				
-			});
-			
-			
+			});	
 		});
 	});
 </script>

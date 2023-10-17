@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 </head>
 <body>
+	<h1>즐겨찾기 목록</h1>
 	<table class="table text-center">
 		<thead>
 			<tr>
@@ -19,11 +21,13 @@
 			</tr>
 		</thead>
 		<tbody>
+		<c:forEach items="${bookmarkList}" var="bookmark">
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>${bookmark.id}</td>
+				<td>${bookmark.name}</td>
+				<td><a href="${bookmark.url}" target="_blank">${bookmark.url}</a></td>
 			</tr>
+		</c:forEach>
 		</tbody>
 	</table>
 </body>

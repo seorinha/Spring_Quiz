@@ -18,38 +18,57 @@
 		<h1>즐겨 찾기 추가 하기</h1>
 		<div class="form-group">
 			<label for="name"><b>제목</b></label>
-			<input type="text" id="name" class="form-control col-10" placeholder="제목을 입력하세요">
+			<input type="text" id="name" class="form-control" placeholder="제목을 입력하세요">
 		</div>
 		<div class="form-group">
 			<label for="url"><b>URL</b></label>
-			<div class="d-flex">
-				<input type="text" id="url" class="form-control col-10" placeholder="주소를 입력하세요">
+			<div class="form-inline">
+				<input type="text" id="url" class="form-control col-11" placeholder="주소를 입력하세요">
 				<button type="button" class="btn btn-info" id="urlCheckBtn">중복확인</button>
 			</div>
-			<small id="urlStatusArea"></small>
+			<small id="duplicatedText" class="text-danger d-none">중복된 url입니다.</small>
+			<small id="availableText" class="text-success d-none">저장 가능한 url입니다.</small>
+			
 		</div>
 		<button type="button" id="addBtn" class="btn btn-success btn-block">추가</button>
 	</div>
 <script>
 	$(document).ready(function() {
-		//중복 버튼클릭
+		//quiz2 중복 버튼클릭
 		$('#urlCheckBtn').on('click', function() {
-			//urlCheckBtn안쪽 태그들 초기화
-			$('#urlStatusArea').empty();
-			
-			//validation
-			if () {
-				
+			//alert("클릭");
+			let url = $('#url').val().trim();
+			if (!url) {
+				alert("검사할 url을 입력하세요");
+				return;
 			}
-			
-			//중복인지 확인
+			//db에서 url중복 확인 - ajax 통신
 			$.ajax({
 				//request
-				
+				type:"post" //url이 길수도 있기때문에 
+				, url:"/lesson06/quiz02/is-duplicated-url"
+				, data:{"url":url}
+			
 				//response
+				, sucess:function(data) { //data를 string이 아닌 json으로 =>dictionary
+					// {"code":200, "is_duplication":true}    true이면 중복
+					if (data.is_duplication) {
+						//중복
+						$('#duplicatedText').removeClass('d-none');
+						$('#availableText').addClass('d-none');
+					} else {
+						//중복 아님
+						$('#duplicatedText').addClass('d-none');
+						$('#availableText').removeClass('d-none');
+					}
+				}
+				, error:function(request, status, error) {
+					alert("중복 확인에 실패했습니다.");
+				}
 			});
 		});
 		
+			
 		
 		$('#addBtn').on('click', function() {
 			//alert("버튼클릭");
@@ -76,6 +95,14 @@
 				alert("주소 형식이 잘못 되었습니다.");
 				return;
 			}
+			
+			
+			//quiz02 저장 가능한 url인지 확인
+			if ($('#availableText').hasClass('d-none')) { //availableText d-none이 있으면 가입불가
+				alert("url 중복확인을 다시 해주세요.");
+				return;
+			}
+			
 			
 			//AJAX 통신(브라우저가 하는 역할 내가 하기): 서버 요청
 			$.ajax({

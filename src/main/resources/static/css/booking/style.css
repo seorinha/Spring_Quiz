@@ -1,11 +1,12 @@
 @charset "UTF-8";
 
-#wrap {width:1200px;}
+header {height:100px;}
+.banner {height:500px;}
+nav {height:40px; background-color:#E3871F;}
+.contents {min-height:500px;}
+footer {height:80px;}
 
-nav {
-	background-color: sandybrown;
-	}
-	
-section {
-	heigt:1000px;
-}
+.reserve {height:200px;}
+.reserve .real-time-reserved {background-color: #B1520F;}
+.reserve .inquiry {background-color: #B1520F;}
+.reserve .confirm {background-color:#E3871F;}

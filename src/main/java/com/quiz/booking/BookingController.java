@@ -1,12 +1,18 @@
 package com.quiz.booking;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.quiz.booking.bo.BookingBO;
 import com.quiz.booking.domain.Booking;
@@ -29,15 +35,72 @@ public class BookingController {
 		return "booking/bookingList";
 	}
 	
+	
+	//예약 삭제 기능 - ajax가 하는 요청
+	//http://localhost:8080/booking/delete-booking
+	// 예약 삭제 기능 - AJAX 요청
+		@ResponseBody
+		@DeleteMapping("/delete-booking")
+		public Map<String, Object> deleteBooking(
+				@RequestParam("id") int id) {
+
+			// db insert
+			bookingBO.deleteBookingById(id);
+
+			// {"code":200, "result":"success"}
+			Map<String, Object> result = new HashMap<>();
+			result.put("code", 200);
+			result.put("result", "success");
+			return result;
+		}
+	
+	
 	//예약하기 화면
 	@GetMapping("/add-booking")
 	public String addBooking() {
 		return "booking/addBooking";
 	}
 	
+	//예약 추가 - ajax 요청
+	@ResponseBody
+	@PostMapping("/add-booking")
+	public Map<String, Object> addBooking(
+			@RequestParam("name") String name,
+			@RequestParam("date") String date,
+			@RequestParam("day") int day,
+			@RequestParam("headcount") int headcount,
+			@RequestParam("phoneNumber") String phoneNumber) {
+		
+		//db insert
+		bookingBO.addBooking(name, date, day, headcount, phoneNumber);
+		
+		//응답
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("result", "success");
+		
+		return result; //json String
+	}
+	
 	//예약조회 화면
 	@GetMapping("/check-booking")
 	public String checkBooking() {
 		return "booking/checkBooking";
+	}
+	
+	//예약 조회 - ajax 요청
+	@ResponseBody
+	@PostMapping("/search-booking")
+	public Map<String, Object> searchBooking(
+			@RequestParam("name") String name,
+			@RequestParam("phoneNumber") String phoneNumber) {
+		
+		//db select
+		//Booking booking = bookingBO. ;
+		
+		//응답값
+		Map<String, Object> result = new HashMap<>();
+		
+		return result;
 	}
 }

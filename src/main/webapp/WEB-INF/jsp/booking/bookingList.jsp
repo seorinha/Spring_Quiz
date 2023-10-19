@@ -1,18 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>quiz03 1. 예약목록 보기</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-
-<%-- jquery는 원본으로 --%>
+<<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<!-- jquery 원본 -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-
+<!-- 내가 만든 stylesheet -->
 <link rel="stylesheet" type="text/css" href="/css/booking/style.css">
 </head>
 <body>
@@ -45,16 +44,29 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${bookingList}" val="book">
+				<c:forEach items="${bookingList}" var="booking">
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>${booking.name}</td>
+						<td><fmt:formatDate value="${booking.date}" pattern="yyyy년 M월 d일" /></td>
+						<td>${booking.day}</td>
+						<td>${booking.headcount}</td>
+						<td>${booking.phoneNumber}</td>
+						<td>${booking.state}
+							<c:choose>
+								<c:when test="${booking.state == '확정'}">
+									<span class="text-success">${booking.state}</span>
+								</c:when>
+								<c:when test="${booking.state == '대기중'}">
+									<span class="text-info">${booking.state}</span>
+								</c:when>
+								<c:when test="${booking.state eq '취소'}">
+									<span class="text-danger">${booking.state}</span>
+								</c:when>
+							</c:choose>
+						</td>
 						<td>
-							<button class="btn btn-danger">삭제</button>
+							<button type="button" class="del-btn btn btn-danger" data-booking-id="${booking.id}">삭제</button>
+							<%-- data-booking-id="${booking.id}" 버튼에 id심어놓는다--%>
 						</td>
 					</tr>
 				</c:forEach>
@@ -70,5 +82,37 @@
 			</small>
 		</footer>
 	</div>
+<script>
+$(document).ready(function() {
+	$('.del-btn').on('click', function() {
+		//alert("클릭");
+		let id = $(this).data('booking-id');
+		//alert(id);
+		
+		$.ajax({
+			// request
+			type:"delete"
+			, url:"/booking/delete-booking"
+			, data:{"id":id}
+				
+				//response
+				, success:function(data) { //json이 dictionary상태로 온다
+					// {"code":200, "result":"success"}
+					if (data.result == "success") {
+						alert("삭제되었습니다.");
+						location.reload();
+					} else {
+						// 로직상의 에러
+						alert("삭제하는데 실패했습니다.");
+					}
+				}
+				, error:function(request, status, error) {
+					alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
+				}
+				
+			});
+		});
+	});
+</script>
 </body>
 </html>

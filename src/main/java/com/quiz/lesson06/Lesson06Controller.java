@@ -40,7 +40,7 @@ public class Lesson06Controller {
 			@RequestParam("url") String url) {
 		
 		//db insert
-		//bookmarkBO.addBookmark(name, url);
+		bookmarkBO.addBookmark(name, url);
 		
 		//응답값 : JSON String
 //		{
@@ -58,13 +58,14 @@ public class Lesson06Controller {
 	//즐겨찾기 목록 화면
 	//http://localhost:8080/lesson06/quiz01/bookmark-list-view
 	@GetMapping("/quiz01/bookmark-list-view")
-	public String bookmarkList(Model model) {
+	public String bookmarkListView(Model model) {
 		List<Bookmark> bookmarkList = bookmarkBO.getBookmarkList();
 		model.addAttribute("bookmarkList", bookmarkList);
 		return "/lesson06/bookmarkList";
 	}
 	
 	//------quiz01 끝------
+	
 	//------quiz02-------
 	//url중복확인 - ajax 요청
 		@ResponseBody

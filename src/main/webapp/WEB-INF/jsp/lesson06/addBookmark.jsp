@@ -54,12 +54,12 @@
 					// {"code":200, "is_duplication":true}    true이면 중복
 					if (data.is_duplication) {
 						//중복
-						$('#duplicatedText').removeClass('d-none');
+						$('#duplicatedText').removeClass('d-none'); //중복된 url입니다.
 						$('#availableText').addClass('d-none');
 					} else {
 						//중복 아님
 						$('#duplicatedText').addClass('d-none');
-						$('#availableText').removeClass('d-none');
+						$('#availableText').removeClass('d-none'); //저장 가능한 url입니다.
 					}
 				}
 				, error:function(request, status, error) {
@@ -98,7 +98,7 @@
 			
 			
 			//quiz02 저장 가능한 url인지 확인
-			if ($('#availableText').hasClass('d-none')) { //availableText d-none이 있으면 가입불가
+			if ($('#availableText').hasClass('d-none')) { //availableText d-none이 있으면(저장가능한 url입니다가 안뜨면) 가입불가
 				alert("url 중복확인을 다시 해주세요.");
 				return;
 			}

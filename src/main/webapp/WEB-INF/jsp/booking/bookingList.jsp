@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>quiz03 예약목록 보기</title>
+<title>quiz03 1. 예약목록 보기</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
 <%-- jquery는 원본으로 --%>
@@ -16,22 +16,22 @@
 <link rel="stylesheet" type="text/css" href="/css/booking/style.css">
 </head>
 <body>
-	<div id="wrap">
-		<header class="container d-flex justify-content-center">
-			<h1>통나무 팬션</h1>
+	<div id="wrap" class="container">
+		<header class="d-flex justify-content-center align-items-center">
+			<div class="display-4">통나무 팬션</div>>
 		</header>
 		
-		<nav class="menu">
+		<nav>
 			<ul class="nav nav-fill">
-				<li class="nav-item"><a href="#" class="nav-link text-white">펜션소개</a></li>
-				<li class="nav-item"><a href="#" class="nav-link text-white">객실보기</a></li>
-				<li class="nav-item"><a href="#" class="nav-link text-white">예약하기</a></li>
-				<li class="nav-item"><a href="#" class="nav-link text-white">예약목록</a></li>
+				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">펜션소개</a></li>
+				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
+				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">예약하기</a></li>
+				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">예약목록</a></li>
 			</ul>
 		</nav>
 		
-		<section class="reserve d-flex">
-			<h3>예약목록 보기</h3>
+		<section class="contents">
+			<h2 class="text-center font-weight-bold m-4">예약목록 보기</h2>
 			<table class="table text-center">
 				<thead>
 					<tr>

@@ -84,10 +84,16 @@
 		//조회버튼 클릭
 		$('#searchBookingBtn').on('click', function() {
 			let name = $('#name').val().trim();
-			let name = $('#phoneNumber').val().trim();
+			let phoneNumber = $('#phoneNumber').val().trim();
 			
-			if () {
-				
+			if (!name) {
+				alert("이름을 입력하세요");
+				return;
+			}
+			
+			if (!phoneNumber) {
+				alert("전화번호를 입력하세요");
+				return;
 			}
 			
 			//ajax통신
@@ -99,7 +105,17 @@
 			
 				//response
 				, success:function(data) {
-					
+					//{"code":400, "error_message":"데이터가 존재하지 않습니다"}
+					//{"code":200, "result":booking("id":1, "name":...)}
+					if (data.code == 200) {
+						alert("이름 :" + data.result.name 
+								+ "\n날짜: " + data.result.date.substring()
+								+ "\n일수: " + data.result.day
+								+ "\n인원: " + data.result.headacount
+								+ "\n상태: " + data.result.state);
+					} else if (data.code == 400) {
+						alert(data.error_message);
+					}
 				}
 				, error:function(request, status, error) {
 					alert("조회에 실패했습니다.");

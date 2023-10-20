@@ -36,4 +36,21 @@ public class BookingBO {
 	public void addBooking(String name, String date, int day, int headcount, String phoneNumber) {
 		bookingMapper.insertBooking(name, date, day, headcount, phoneNumber);
 	}
+	
+	//input:name phoneNumber
+	//output:Booking(null or Booking)
+	public Booking getBookingByNamePhoneNumber(String name, String phoneNumber) {
+		List<Booking> bookingList = bookingMapper.selectBookingByNamePhoneNumber(name, phoneNumber);
+		//0, 1(최신데이터)
+		//리스트가 비어있으면 null이 아니라 []이렇게 되어있다
+		if (bookingList.isEmpty()) {
+			return null; //null로 return한다
+		}
+		
+		//리스트가 비어있지 않으면 마지막 객체를 리턴 할 것
+		return bookingList.get(bookingList.size() - 1); //booking을 리턴한다
+		
+		
+		
+	}
 }

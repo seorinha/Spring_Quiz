@@ -21,31 +21,26 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Builder
+@Builder(toBuilder = true)
 @Entity
-@Table(name="company")
+@Table(name = "company")
 public class CompanyEntity {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name = "name")
+
 	private String name;
-	
-	@Column(name = "business")
+
 	private String business;
-	
-	@Column(name = "scale")
+
 	private String scale;
-	
-	@Column(name = "headcount")
+
 	private int headcount;
-	
+
 	@UpdateTimestamp
 	@Column(name = "createdAt", updatable = false)
 	private ZonedDateTime createdAt;
-	
+
 	@UpdateTimestamp
 	@Column(name = "updatedAt")
 	private ZonedDateTime updatedAt;

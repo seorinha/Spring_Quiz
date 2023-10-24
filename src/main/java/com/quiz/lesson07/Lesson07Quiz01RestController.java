@@ -17,6 +17,7 @@ public class Lesson07Quiz01RestController {
 	private CompanyBO companyBO;
 	
 	//1. create
+	//http://localhost:8080/lesson07/quiz01/save1
 	@GetMapping("/save1")
 	public CompanyEntity save1() {
 		
